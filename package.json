@@ -1,0 +1,19 @@
+{
+  "name": "lovelace-labenu-system10",
+  "version": "1.0.0",
+  "description": "Projeto semana Sistema Labenu",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/future4code/lovelace-labenu-system10.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/future4code/lovelace-labenu-system10/issues"
+  },
+  "homepage": "https://github.com/future4code/lovelace-labenu-system10#readme"
+}
