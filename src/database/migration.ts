@@ -1,5 +1,16 @@
 import { connection } from "./connection";
 
+const removeTables = async () => {
+  await connection.raw(`DROP TABLE teacher_speciality`);
+  await connection.raw(`DROP TABLE speciality`);
+  await connection.raw(`DROP TABLE studant_hobbie`);
+  await connection.raw(`DROP TABLE hobbie`);
+  await connection.raw(`DROP TABLE teacher`);
+  await connection.raw(`DROP TABLE studant`);
+  await connection.raw(`DROP TABLE cohort`);
+
+};
+
 const createTables = async () => {
   //create class
   await connection.raw(`
@@ -21,33 +32,33 @@ const createTables = async () => {
             name VARCHAR(50) NOT NULL,
             email VARCHAR(50) NOT NULL UNIQUE,
             birth_date DATE NOT NULL,
-            class_id INT NOT NULL,
+            class_id INT,
             FOREIGN KEY (class_id) REFERENCES cohort(id)
         ); 
     `);
 
-    //create teacher
-    await connection.raw(`
+  //create teacher
+  await connection.raw(`
         CREATE TABLE IF NOT EXISTS teacher (
             id INT NOT NULL PRIMARY KEY,
             name VARCHAR(50) NOT NULL,
             email VARCHAR(50) NOT NULL UNIQUE,
             birth_date DATE NOT NULL,
-            class_id INT NOT NULL,
+            class_id INT,
             FOREIGN KEY (class_id) REFERENCES cohort(id)
         ); 
     `);
 
-    //create hobbie
-    await connection.raw(`
+  //create hobbie
+  await connection.raw(`
     CREATE TABLE IF NOT EXISTS hobbie (
             id INT NOT NULL PRIMARY KEY,
             name VARCHAR(50) NOT NULL
         ); 
     `);
 
-    //create studant hobbie
-    await connection.raw(`
+  //create studant hobbie
+  await connection.raw(`
         CREATE TABLE IF NOT EXISTS studant_hobbie (
             studant_id INT NOT NULL,
             hobbie_id INT NOT NULL,
@@ -56,16 +67,16 @@ const createTables = async () => {
         ); 
     `);
 
-    //create speciality
-    await connection.raw(`
+  //create speciality
+  await connection.raw(`
     CREATE TABLE IF NOT EXISTS speciality (
             id INT NOT NULL PRIMARY KEY,
             name VARCHAR(50) NOT NULL
         ); 
     `);
 
-    //create teacher speciality
-    await connection.raw(`
+  //create teacher speciality
+  await connection.raw(`
         CREATE TABLE IF NOT EXISTS teacher_speciality (
             teacher_id INT NOT NULL,
             speciality_id INT NOT NULL,
@@ -76,19 +87,20 @@ const createTables = async () => {
 };
 
 const closeConnection = async () => {
-    connection.destroy();
-  };
+  connection.destroy();
+};
 
+(async function main() {
+  try {
+    await removeTables();
+    console.log("Remove old tables")
+    await createTables();
+    console.log("Succesfull - Create tables");
 
-(async function main(){
-    try {
-        await createTables()
-        console.log("Succesfull - Create tables")
-
-    } catch (error: any) {
-        console.log(error.message || error.sqlMessage)
-
-    }finally {
-        await closeConnection()
-    }
-})()
+    
+  } catch (error: any) {
+    console.log(error.message || error.sqlMessage);
+  } finally {
+    await closeConnection();
+  }
+})();
