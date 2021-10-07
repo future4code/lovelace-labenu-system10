@@ -21,7 +21,7 @@ const createTables = async () => {
             name VARCHAR(50) NOT NULL,
             email VARCHAR(50) NOT NULL UNIQUE,
             birth_date DATE NOT NULL,
-            class_id INT NOT NULL,
+            class_id INT,
             FOREIGN KEY (class_id) REFERENCES cohort(id)
         ); 
     `);
@@ -33,7 +33,7 @@ const createTables = async () => {
             name VARCHAR(50) NOT NULL,
             email VARCHAR(50) NOT NULL UNIQUE,
             birth_date DATE NOT NULL,
-            class_id INT NOT NULL,
+            class_id INT,
             FOREIGN KEY (class_id) REFERENCES cohort(id)
         ); 
     `);
