@@ -1,6 +1,9 @@
 import { Response, Request } from "express";
 
-
+/**
+ POST
+ '/teacher'
+ */
 export const createTeacher = (req: Request, res: Response) => {
     try {
         res.statusCode = 400

@@ -1,6 +1,9 @@
 import { Response, Request } from "express";
 
-
+/**
+ POST
+ '/studant'
+ */
 export const createStudant = (req: Request, res: Response) => {
     try {
         res.statusCode = 400
@@ -12,6 +15,10 @@ export const createStudant = (req: Request, res: Response) => {
     }
 }
 
+/**
+ GET
+ '/studant/:id'
+ */
 export const getStudantAgeByStudantId = (req: Request, res: Response) => {
     try {
         res.statusCode = 400
