@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsc && node ./build/app.js",
     "dev": "ts-node-dev ./src/app.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "migrate": "ts-node-dev ./src/database/migration.ts"
   },
   "repository": {
     "type": "git",
