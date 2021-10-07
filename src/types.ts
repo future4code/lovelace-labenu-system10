@@ -3,7 +3,7 @@ export type Studant = {
     name: string,
     email: string,
     birthDate: Date,
-    class_id?: number
+    classId?: number
 }
 
 export type Teacher = {
@@ -11,7 +11,7 @@ export type Teacher = {
     name: string,
     email: string,
     birthDate: Date,
-    class_id?: number
+    classId?: number
 }
 
 export type Classes = {
