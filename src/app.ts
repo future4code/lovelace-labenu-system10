@@ -2,14 +2,19 @@ import { AddressInfo } from "net";
 import express from 'express'
 import cors from 'cors'
 
+import studantRouter from './routes/studant'
+import teacherRouter from './routes/teacher'
+import classRouter from './routes/class'
+
+
 const app = express()
 
 app.use(express.json())
 app.use(cors())
 
-app.get('/', (req, res) => {
-    res.send('ok')
-})
+app.use(studantRouter)
+app.use(teacherRouter)
+app.use(classRouter)
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
