@@ -13,3 +13,11 @@ export type Teacher = {
     birthDate: Date,
     class_id?: number
 }
+
+export type Classes = {
+    id:number,
+    name:string,
+    module: number,
+    startDate: Date,
+    endDate: Date
+}
