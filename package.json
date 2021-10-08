@@ -7,7 +7,8 @@
     "start": "tsc && node ./build/app.js",
     "dev": "ts-node-dev ./src/app.ts",
     "build": "tsc",
-    "migrate": "ts-node-dev ./src/database/migration.ts"
+    "migrate": "ts-node-dev ./src/database/migration.ts",
+    "seed": "ts-node-dev ./src/database/seed.ts"
   },
   "repository": {
     "type": "git",
