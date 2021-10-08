@@ -2,7 +2,7 @@ import { Classes, Studant, Teacher } from "../types";
 import { createClass } from "./class";
 import {
   createStydant,
-  getStudantAgeByStudantId,
+  getStudantByStudantId,
   setClassOfStudant,
 } from "./studants";
 import { createTeacher, setClassOfTeacher } from "./teachers";
@@ -38,14 +38,6 @@ createClass(classTest)
 
 createStydant(studantTest)
   .then(() => console.log("[success] create studant"))
-  .catch(printError);
-
-getStudantAgeByStudantId(2)
-  .then((studant) =>
-    studant.id === 2
-      ? console.log("[success] get studant")
-      : console.log("[fail] get studant", studant)
-  )
   .catch(printError);
 
 studantTest.classId = 1;
