@@ -6,8 +6,8 @@ export const createClass = async (classes: Classes) => {
     id: classes.id,
     name: classes.name,
     module: classes.module,
-    startDate: classes.startDate,
-    endDate: classes.endDate,
+    start_date: classes.startDate,
+    end_date: classes.endDate,
   });
 };
 
