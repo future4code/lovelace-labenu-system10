@@ -1,5 +1,12 @@
 import { Response, Request } from "express";
 
+import {
+    setClassOfStudant,
+    getStudantByStudantId
+} from '../repository/studants'
+import { setClassOfTeacher } from "../repository/teachers";
+import { Studant, Teacher } from "../types";
+
 /**
  POST
  /class
@@ -22,11 +29,36 @@ export const createClass = (req: Request, res: Response) => {
  req.params.idClass
  dados do teacher por body
  */
-export const addStudantAtClass = (req: Request, res: Response) => {
+export const addStudantAtClass = async (req: Request, res: Response) => {
     try {
         res.statusCode = 400
 
-        //Funcionalidade aqui
+        const studantId: number = req.body.studandId
+
+        const idClass: number = Number(req.params.idClass)
+
+        if(!idClass || isNaN(idClass) /* || !studantId || isNaN(studantId) */) { 
+            res.statusCode = 422
+            throw new Error("Incorrect format. Id should be a number")
+        }
+
+        const studant:(Studant|null) = await getStudantByStudantId(studantId)
+
+        if(!studant) {
+            res.statusCode = 404
+            throw new Error("Does not exists")
+        }
+
+        if(studant.classId) { 
+            res.statusCode = 401
+            throw new Error("Class already exists")
+        }
+
+        studant.classId = idClass;
+        setClassOfStudant(studant)
+
+        res.status(200).send("Successfully added")
+        
 
     } catch (error:any) {
         res.send(error.message || error.sqlMessage)
@@ -44,7 +76,27 @@ export const addTeacherAtClass = (req: Request, res: Response) => {
     try {
         res.statusCode = 400
 
-        //Funcionalidade aqui
+        const idClass: number = Number(req.params.idClass)
+
+        if(!idClass || isNaN(idClass)) { 
+            res.statusCode = 422
+            throw new Error("Incorrect format. Id should be a number")
+        }
+
+        const teacher:(Teacher|null) = { 
+            id: req.body.id as number,
+            name: req.body.name as string,
+            email: req.body.email as string , 
+            birthDate: req.body.birthDate as Date ,
+                
+        }
+
+
+        teacher.classId = idClass;
+        setClassOfTeacher(teacher)
+
+        res.status(200).send("Successfully added")
+        console.log(teacher)
 
     } catch (error:any) {
         res.send(error.message || error.sqlMessage)
