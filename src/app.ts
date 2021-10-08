@@ -12,9 +12,9 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-app.use(studantRouter)
-app.use(teacherRouter)
-app.use(classRouter)
+app.use('/', studantRouter)
+app.use('/', teacherRouter)
+app.use('/', classRouter)
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {

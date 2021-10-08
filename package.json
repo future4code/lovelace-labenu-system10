@@ -2,11 +2,10 @@
   "name": "lovelace-labenu-system10",
   "version": "1.0.0",
   "description": "Projeto semana Sistema Labenu",
-  "main": "build/app.js",
+  "main": "./build/app.js",
   "scripts": {
     "start": "tsc && node ./build/app.js",
     "dev": "ts-node-dev ./src/app.ts",
-    "build": "tsc",
     "migrate": "ts-node-dev ./src/database/migration.ts",
     "seed": "ts-node-dev ./src/database/seed.ts",
     "test": "ts-node-dev ./src/repository/test.ts"
