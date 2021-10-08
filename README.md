@@ -13,6 +13,7 @@ DB_PASS =
 DB_NAME = 
 
 npm run migrate
+npm run seed
 
 npm run dev
 ```
