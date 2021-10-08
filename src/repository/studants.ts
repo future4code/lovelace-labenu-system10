@@ -10,10 +10,14 @@ export const createStydant = async (studant: Studant) => {
   });
 };
 
-export const getStudantAgeByStudantId = async (
+export const getStudantByStudantId = async (
   studandId: number
-): Promise<Studant> => {
+): Promise<Studant|null> => {
   const [studant]: any = await connection("studant").where({ id: studandId });
+
+  if(!studant || !Object.keys(studant).length){
+    return null
+  }
 
    return {
      id: studant.id,
