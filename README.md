@@ -16,4 +16,9 @@ npm run migrate
 npm run seed
 
 npm run dev
+
+
+or run to test:
+npm run test 
+
 ```
