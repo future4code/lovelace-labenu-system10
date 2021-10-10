@@ -1,52 +1,64 @@
 import { Response, Request } from "express";
-import {
-    createStydant,
-    setClassOfStudant,
-    getStudantByStudantId
-} from '../repository/studants'
+import { createStydant, getStudantByStudantId } from "../repository/studants";
 import { Studant } from "../types";
 
 /**
  POST
  '/studant'
  */
-export const createStudant = (req: Request, res: Response) => {
-    try {
-        res.statusCode = 400
+export const createStudant = async (req: Request, res: Response) => {
+  try {
+    res.statusCode = 400;
 
-        //Funcionalidade aqui
+    const id: number = Number(req.body.id);
+    const name: string = req.body.name;
+    const email: string = req.body.email;
+    const birthDate: Date = new Date(req.body.birthDate);
 
-    } catch (error:any) {
-        res.send(error.message || error.sqlMessage)
-    }
-}
+    if (!id || isNaN(id)) throw new Error("Missing id or incorrect format");
+    else if (!name) throw new Error("Missing name");
+    else if (!email) throw new Error("Missing email");
+    else if (!birthDate) throw new Error("Missing birthDate");
+
+    const studant: Studant = {
+      id: id,
+      email: email,
+      birthDate: birthDate,
+      name: name,
+    };
+
+    await createStydant(studant);
+
+    res.status(201).end()
+
+  } catch (error: any) {
+    res.send(error.message || error.sqlMessage);
+  }
+};
 
 /**
  GET
  '/studant/:id'
  */
 export const getStudantAgeByStudantId = async (req: Request, res: Response) => {
-    try {
-        res.statusCode = 400
+  try {
+    res.statusCode = 400;
 
-        const studantId: number = Number(req.params.id)
+    const studantId: number = Number(req.params.id);
 
-        if(!studantId || isNaN(studantId)){
-            res.statusCode = 422
-            throw new Error('Incorrect format. Id should be a number')
-        }
-        
-        const studant: (Studant|null) = await getStudantByStudantId(studantId)
-
-        if(!studant)
-            return res.status(404).send('Does not exists')
-
-        const ageMiliSec: number = (Date.now() - studant.birthDate.getMilliseconds())
-
-        return res.status(200).send({age: ageMiliSec})
-
-
-    } catch (error:any) {
-        res.send(error.message || error.sqlMessage)
+    if (!studantId || isNaN(studantId)) {
+      res.statusCode = 422;
+      throw new Error("Incorrect format. Id should be a number");
     }
-}
+
+    const studant: Studant | null = await getStudantByStudantId(studantId);
+
+    if (!studant) return res.status(404).send("Does not exists");
+
+    const ageMiliSec: number = Date.now() - studant.birthDate.getMilliseconds();
+
+    return res.status(200).send({ age: ageMiliSec });
+  } catch (error: any) {
+    res.send(error.message || error.sqlMessage);
+  }
+};
