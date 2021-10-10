@@ -1,5 +1,8 @@
 ## LabenuSystem:
 
+### URL
+https://cryptic-tundra-80482.herokuapp.com
+
 ### Endpoints
 
 #### [Get] pegar idade do aluno pelo seu Id
