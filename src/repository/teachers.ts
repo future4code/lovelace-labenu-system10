@@ -15,3 +15,22 @@ export const setClassOfTeacher = async (teacher: Teacher) => {
           .where({id: teacher.id})
           .update({class_id: teacher.classId})
 }
+
+export const getTeacherByTeacherId = async (
+  teacherId: number
+): Promise<Teacher|null> => {
+  const [teacher]: any = await connection("teacher").where({ id: teacherId });
+
+  if(!teacher || !Object.keys(teacher).length){
+    return null
+  }
+
+   return {
+     id: teacher.id,
+     email: teacher.email,
+     name: teacher.name,
+     birthDate: new Date(teacher.birth_date),
+     classId: teacher.class_id,
+   };
+
+};
