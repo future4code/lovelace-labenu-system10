@@ -43,7 +43,7 @@ export const getStudantAgeByStudantId = async (req: Request, res: Response) => {
 
         const ageMiliSec: number = (Date.now() - studant.birthDate.getMilliseconds())
 
-        return res.status(200).send({age: new Date(ageMiliSec)})
+        return res.status(200).send({age: ageMiliSec})
 
 
     } catch (error:any) {
