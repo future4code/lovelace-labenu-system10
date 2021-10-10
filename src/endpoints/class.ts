@@ -4,7 +4,10 @@ import {
     setClassOfStudant,
     getStudantByStudantId
 } from '../repository/studants'
-import { setClassOfTeacher } from "../repository/teachers";
+import { 
+    setClassOfTeacher,
+    getTeacherByTeacherId
+} from "../repository/teachers";
 import { Studant, Teacher } from "../types";
 
 /**
@@ -33,11 +36,11 @@ export const addStudantAtClass = async (req: Request, res: Response) => {
     try {
         res.statusCode = 400
 
-        const studantId: number = req.body.studandId
+        const studantId: number = Number(req.body.studandId)
 
         const idClass: number = Number(req.params.idClass)
 
-        if(!idClass || isNaN(idClass) /* || !studantId || isNaN(studantId) */) { 
+        if(idClass===undefined || isNaN(idClass)) { 
             res.statusCode = 422
             throw new Error("Incorrect format. Id should be a number")
         }
@@ -49,7 +52,7 @@ export const addStudantAtClass = async (req: Request, res: Response) => {
             throw new Error("Does not exists")
         }
 
-        if(studant.classId) { 
+        if(studant.classId!==undefined || studant.classId!==null) { 
             res.statusCode = 401
             throw new Error("Class already exists")
         }
@@ -72,28 +75,36 @@ export const addStudantAtClass = async (req: Request, res: Response) => {
   req.params.idClass
   dados do studant por body
  */
-export const addTeacherAtClass = (req: Request, res: Response) => {
+export const addTeacherAtClass = async (req: Request, res: Response) => {
     try {
         res.statusCode = 400
 
+        const teacherId: number = Number(req.body.teacherId)
         const idClass: number = Number(req.params.idClass)
 
-        if(!idClass || isNaN(idClass)) { 
+        if(idClass===undefined || isNaN(idClass)) { 
             res.statusCode = 422
-            throw new Error("Incorrect format. Id should be a number")
+            throw new Error("Incorrect format. idClass should be a number")
+        }
+        else if(teacherId===undefined || isNaN(teacherId)) { 
+            res.statusCode = 422
+            throw new Error("Incorrect format. studantId should be a number")
         }
 
-        const teacher:(Teacher|null) = { 
-            id: req.body.id as number,
-            name: req.body.name as string,
-            email: req.body.email as string , 
-            birthDate: req.body.birthDate as Date ,
-                
+        const teacher:(Teacher|null) = await getTeacherByTeacherId(teacherId)
+
+        if(!teacher) {
+            res.statusCode = 404
+            throw new Error("Does not exists")
         }
 
+        if(teacher.classId!==undefined || teacher.classId!==null) { 
+            res.statusCode = 401
+            throw new Error("Class already exists")
+        }
 
         teacher.classId = idClass;
-        setClassOfTeacher(teacher)
+        await setClassOfTeacher(teacher)
 
         res.status(200).send("Successfully added")
         console.log(teacher)
