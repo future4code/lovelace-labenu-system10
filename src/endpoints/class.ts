@@ -52,13 +52,13 @@ export const addStudantAtClass = async (req: Request, res: Response) => {
             throw new Error("Does not exists")
         }
 
-        if(studant.classId!==undefined || studant.classId!==null) { 
+        if(!studant.classId===null) { 
             res.statusCode = 401
             throw new Error("Class already exists")
         }
 
         studant.classId = idClass;
-        setClassOfStudant(studant)
+        await setClassOfStudant(studant)
 
         res.status(200).send("Successfully added")
         
@@ -98,7 +98,7 @@ export const addTeacherAtClass = async (req: Request, res: Response) => {
             throw new Error("Does not exists")
         }
 
-        if(teacher.classId!==undefined || teacher.classId!==null) { 
+        if(teacher.classId!==null) { 
             res.statusCode = 401
             throw new Error("Class already exists")
         }
@@ -107,7 +107,6 @@ export const addTeacherAtClass = async (req: Request, res: Response) => {
         await setClassOfTeacher(teacher)
 
         res.status(200).send("Successfully added")
-        console.log(teacher)
 
     } catch (error:any) {
         res.send(error.message || error.sqlMessage)

@@ -1,10 +1,10 @@
 import { Router } from "express";
 import {
-    createTeacher
+    createTeacherController
 } from "../endpoints/teachers"
 
 const router = Router()
 
-router.post('/teacher', createTeacher)
+router.post('/teacher', createTeacherController)
 
 export default router
