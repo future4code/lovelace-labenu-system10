@@ -3,12 +3,12 @@
 ### Endpoints
 
 #### [Get] pegar idade do aluno pelo seu Id
-/studant/:studantID
+* /studant/:studantID
 
 #### [Post] criar aluno
-/studant
+* /studant
 
-body
+* body
 {
     "id": 3,
     "name": "Rodolfo",
@@ -17,9 +17,9 @@ body
 }
 
 #### [Post] criar professor
-/studant
+* /studant
 
-body
+* body
 {
     "id": 3,
     "name": "Profe",
@@ -28,17 +28,17 @@ body
 }
 
 #### [Post] definir class_id do aluno
-/class/:classId/addStudant
+* /class/:classId/addStudant
 
-body
+* body
 {
     "studandId":3
 }
 
 #### [Post] definir class_id do professor
-/class/:classId/addStudant
+* /class/:classId/addStudant
 
-body
+* body
 {
     "teacherId":3
 }
