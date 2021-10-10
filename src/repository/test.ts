@@ -40,7 +40,6 @@ createStydant(studantTest)
   .then(() => console.log("[success] create studant"))
   .catch(printError);
 
-
 studantTest.classId = 1;
 setClassOfStudant(studantTest)
   .then(() => console.log("[success] update studant"))
