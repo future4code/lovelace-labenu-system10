@@ -33,11 +33,11 @@ export const addStudantAtClass = async (req: Request, res: Response) => {
     try {
         res.statusCode = 400
 
-        const studantId: number = req.body.studandId
+        const studantId: number = Number(req.body.studandId)
 
         const idClass: number = Number(req.params.idClass)
 
-        if(!idClass || isNaN(idClass) /* || !studantId || isNaN(studantId) */) { 
+        if(idClass===undefined || isNaN(idClass)) { 
             res.statusCode = 422
             throw new Error("Incorrect format. Id should be a number")
         }
@@ -49,7 +49,7 @@ export const addStudantAtClass = async (req: Request, res: Response) => {
             throw new Error("Does not exists")
         }
 
-        if(studant.classId) { 
+        if(studant.classId!==undefined || studant.classId!==null) { 
             res.statusCode = 401
             throw new Error("Class already exists")
         }
