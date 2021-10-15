@@ -1,33 +1,71 @@
 ## LabenuSystem:
 
-Você estuda na Labenu_ há tanto tempo que já parecem anos, não é? Então, hoje, vamos pedir para criar um sistema que represente o básico da nossa organização. 
+### URL
+https://cryptic-tundra-80482.herokuapp.com
 
-Ele deve possuir, ao menos, as 3 entidades importantes:
+### Endpoints
 
-1. Estudantes 
+#### [Get] pegar idade do aluno pelo seu Id
+* /studant/:studantID
 
-    Representa estudantes da nossa instituição. Eles devem possuir: id, nome, email, data de nascimento e os principais hobbies dele. 
+#### [Post] criar aluno
+* /studant
 
-2. Docente
+* body
+{
+    "id": 3,
+    "name": "Rodolfo",
+    "email": "redolfo@email.com",
+    "birthDate": "2021-12-12"
+}
 
-    Representa docentes da nossa instituição. Eles devem possuir: id, nome, email, data de nascimento e todas as especialidades dele. Há 7 especialidades: React, Redux, CSS, Testes, Typescript, Programação Orientada a Objetos e Backend
+#### [Post] criar professor
+* /studant
 
-3. Turma
+* body
+{
+    "id": 3,
+    "name": "Profe",
+    "email": "profe@email.com",
+    "birthDate": "2021-12-12"
+}
 
-    Toda turma é composta das seguintes características: id, nome, data de início, data de término, lista de professores responsáveis, uma lista de alunos e módulo atual em que a turma está.
+#### [Post] definir class_id do aluno
+* /class/:classId/addStudant
 
-    O módulo pode assumir os valores de 1 a 7 ou `undefined`, indicando que as aulas dessa turma ainda não começaram. Para esse exercício, vamos considerar que existam dois tipos de turma: integral ou noturna. Há uma restrição para o nome das turmas noturnas: tem que terminar com `-na-night`.
+* body
+{
+    "studandId":3
+}
 
-As funcionalidades básicas são:
+#### [Post] definir class_id do professor
+* /class/:classId/addStudant
 
-→ Criar estudante;
+* body
+{
+    "teacherId":3
+}
 
-→ Criar docente;
 
-→ Criar turma;
+```
+git clone https://github.com/future4code/lovelace-labenu-system10.git
 
-→ Adicionar estudante na turma;
+npm install
+npm install @types/express @types/cors
 
-→ Adicionar docente na turma;
+// Crie um arquivo .env
+DB_HOST = 
+DB_USER = 
+DB_PASS = 
+DB_NAME = 
 
-→ Pegar a idade de algum estudante a partir do id
+npm run migrate
+npm run seed
+
+npm run dev
+
+
+or run to test:
+npm run test 
+
+```
